@@ -1,7 +1,7 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from app.sentiment import analisar_sentimento
-import os
 import uvicorn
 
 app = FastAPI()
@@ -14,7 +14,7 @@ def detectar_sentimento(dados: TextoEntrada):
     resultado = analisar_sentimento(dados.texto)
     return {"sentimento": resultado}
 
-# Isso garante que a aplicação funcione corretamente localmente e na Railway
+# Execução direta (produção e local)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))  # Usa a variável de ambiente PORT se estiver presente
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run("app.main:app", host="0.0.0.0", port=port)
